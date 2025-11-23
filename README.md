@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
-![Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)
+![OpenAI](https://img.shields.io/badge/AI-OpenAI%20%2F%20LLM-412991?style=for-the-badge&logo=openai&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Prototype-success?style=for-the-badge)
 
 > **MediMind** is a multimodal AI health assistant that bridges the gap between patient symptoms and specialist care. Unlike standard chatbots, it "remembers" patient history to provide context-aware diagnoses, "sees" physical symptoms via image analysis, and instantly detects life-threatening emergencies to trigger a zero-latency SOS protocol.
@@ -36,7 +36,7 @@ MediMind utilizes a persistent memory module to analyze the **timeline** of symp
 
 ### 2. 📸 Multimodal Visual Diagnosis
 Patients can upload images of visible symptoms (rashes, wounds, swelling).
-* **Tech:** Uses **Gemini 2.0 Vision** to analyze the image alongside the textual transcript to refine the specialist recommendation (e.g., routing to a Dermatologist instead of a GP).
+* **Tech:** Uses **Multimodal Vision Models** to analyze the image alongside the textual transcript to refine the specialist recommendation (e.g., routing to a Dermatologist instead of a GP).
 
 ### 3. 🚨 Guardian Mode (SOS Protocol)
 A passive listening system that bypasses the LLM for immediate threat response.
@@ -50,33 +50,26 @@ Generates a professional **S.O.A.P. (Subjective, Objective, Assessment, Plan)** 
 
 ## 🏗 System Architecture
 
-The system follows a lightweight, event-driven architecture designed for speed and reliability.
+The system follows a lightweight, event-driven flow:
 
-*(Add your diagram here: Save your generated diagram as `assets/architecture.png`)*
-
-![Architecture Diagram](assets/architecture.png)
-
----
-
-## 🛠 Tech Stack
-
-| Component | Technology | Description |
-| :--- | :--- | :--- |
-| **LLM Engine** | **Google Gemini 2.0 Flash** | Ultra-low latency inference for triage & vision. |
-| **Backend** | **Python / Flask** | REST API handling state management & logic. |
-| **Frontend** | **HTML5 / CSS3 / JS** | Glassmorphism UI with Web Audio API integration. |
-| **Vision** | **Pillow (PIL)** | Image processing before AI analysis. |
-| **Storage** | **JSON (Local)** | Lightweight NoSQL-style event logging. |
-
----
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-* Python 3.8+
-* A Google Cloud API Key (Gemini)
-
-### Step 1: Clone the Repo
-```bash
-git clone [https://github.com/YOUR_USERNAME/MediMind.git](https://github.com/YOUR_USERNAME/MediMind.git)
-cd MediMind
+```mermaid
+graph TD;
+    Patient[Patient Input] -->|Voice/Text| Microphone;
+    Patient -->|Visual| Camera;
+    
+    Microphone --> Backend[Flask Backend];
+    Camera --> Backend;
+    
+    Backend -->|Check Keywords| SOS{Critical Trigger?};
+    
+    SOS -- YES --> RedAlert[🚨 RED ALERT MODE];
+    RedAlert --> Beacon[Audio Beacon + Timer];
+    
+    SOS -- NO --> Context[Context Engine];
+    Context -->|Fetch History| DB[(Local JSON DB)];
+    DB --> Context;
+    
+    Context -->|History + New Symptom + Image| AI[OpenAI / LLM API];
+    
+    AI --> Analysis[Clinical Triage];
+    Analysis --> UI[Frontend Display];
