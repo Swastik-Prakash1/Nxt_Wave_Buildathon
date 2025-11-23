@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "type": "symptom",
+      "text": "I am having a cough.",
+      "timestamp": "2025-11-22T16:44:04.487190Z",
+      "extra": {
+        "triage": {
+          "specialist": "General Practitioner",
+          "reason": "The patient presents with a new complaint of cough. Given the lack of any prior history provided and no other concerning symptoms like fever or shortness of breath, this appears to be a routine respiratory issue best addressed by a general practitioner for initial evaluation and management.",
+          "priority": "LOW"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "symptom",
+      "text": "I am having extreme chest pain on the left side on my heart.",
+      "timestamp": "2025-11-23T03:50:56.998239Z",
+      "extra": {
+        "triage": {
+          "specialist": "Cardiologist",
+          "reason": "The patient initially reported a cough, followed by foot pain. However, the most recent and critical complaint is extreme chest pain, specifically on the left side near the heart. While the cough and foot pain may be relevant, the chest pain is a serious symptom requiring immediate evaluation by a cardiologist to rule out cardiac issues.",
+          "priority": "HIGH"
+        }
+      }
+    }
+  ]
+}

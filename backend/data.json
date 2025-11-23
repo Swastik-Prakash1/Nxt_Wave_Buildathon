@@ -1,0 +1,35 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "type": "symptom",
+      "text": "I have a fever of 104",
+      "timestamp": "2025-11-22T04:40:11.840417Z",
+      "extra": {}
+    },
+    {
+      "id": 2,
+      "type": "symptom",
+      "text": "My stomach is hurting a lot.",
+      "timestamp": "2025-11-22T05:04:04.194895Z",
+      "extra": {
+        "detected_language": "Hindi",
+        "symptoms": [
+          "abdominal pain"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "type": "symptom",
+      "text": "I have a headache.",
+      "timestamp": "2025-11-22T05:04:37.711216Z",
+      "extra": {
+        "detected_language": "Hindi",
+        "symptoms": [
+          "headache"
+        ]
+      }
+    }
+  ]
+}

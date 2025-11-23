@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Health Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+
+  <div id="sosOverlay" class="sos-overlay hidden">
+    <div class="sos-content">
+        <div class="sos-icon"><i class="fa-solid fa-truck-medical fa-beat"></i></div>
+        <h1>EMERGENCY DETECTED</h1>
+        <p>Sending SOS to emergency contacts in:</p>
+        <div id="sosTimer" class="sos-timer">10</div>
+        <div class="sos-actions">
+            <button id="cancelSosBtn" class="cancel-sos-btn">
+                <i class="fa-solid fa-xmark"></i> I AM FINE (CANCEL)
+            </button>
+        </div>
+        <p id="sosStatusMsg" class="sos-status-msg hidden">Alert Sent! Starting Beacons...</p>
+    </div>
+  </div>
+
+  <header class="top-bar">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <span class="logo-text">Medi<strong>Mind</strong></span>
+    </div>
+    <button type="button" id="soapBtn" class="soap-btn">
+      <i class="fa-solid fa-file-medical"></i> Generate SOAP Report
+    </button>
+  </header>
+
+  <main class="container">
+
+    <div id="recordingView" class="view-section fade-in">
+      <div class="main-grid">
+        
+        <div class="card mic-card">
+          <div class="card-header-center">
+            <h3>Symptom Check</h3>
+            <p>Tap the microphone and describe how you feel.</p>
+          </div>
+          
+          <div class="mic-wrapper">
+            <button type="button" id="micBtn" class="mic-btn">
+              <span id="micIcon"><i class="fa-solid fa-microphone"></i></span>
+            </button>
+            <div class="mic-ripple"></div>
+          </div>
+
+          <p id="statusText" class="status-text">Ready to listen...</p>
+          <div id="livePreview" class="live-preview"></div>
+        </div>
+
+        <div class="card sidebar-card">
+          <div class="sidebar-icon">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <div class="sidebar-content">
+            <label>CURRENT CONTEXT</label>
+            <h2 id="prevSpecialist">General Physician</h2>
+            <p class="sidebar-note">Based on your recent history interactions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultView" class="view-section hidden fade-in">
+      <div class="card result-card">
+        <div class="result-header">
+          <h2><i class="fa-solid fa-clipboard-check"></i> Analysis Complete</h2>
+        </div>
+        
+        <div class="result-body">
+          
+          <div class="result-grid">
+            <div class="diagnosis-box">
+              <label>RECOMMENDED SPECIALIST</label>
+              <h1 id="resSpecialist">...</h1>
+              <p id="resReason">...</p>
+              <div id="resPriority" class="priority-badge">Low Priority</div>
+            </div>
+
+            <div class="suggestion-box">
+              <label><i class="fa-solid fa-lightbulb"></i> IMMEDIATE SUGGESTION</label>
+              <p id="resSuggestion">...</p>
+            </div>
+          </div>
+
+          <div class="image-upload-section">
+             <div id="uploadPrompt" class="upload-prompt">
+                <p><i class="fa-solid fa-camera"></i> Have visible symptoms? Upload a photo for better accuracy.</p>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+                <button id="uploadBtn" class="secondary-btn">Add Picture</button>
+             </div>
+             <div id="uploadLoading" class="hidden">
+                 <i class="fa-solid fa-spinner fa-spin"></i> Analyzing visual data...
+             </div>
+          </div>
+
+          <div class="details-section">
+            <div class="detail-group">
+              <label>TRANSCRIPT</label>
+              <p id="resTranscript" class="transcript-text">...</p>
+            </div>
+            <div class="detail-group">
+              <label>DETECTED SYMPTOMS</label>
+              <div id="resTags" class="tags-container"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="result-footer">
+          <button id="resetBtn" class="primary-btn">
+            <i class="fa-solid fa-rotate-right"></i> Record Another Symptom
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="card timeline-card">
+        <div class="card-header-simple">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> History</h3>
+        </div>
+        
+        <div class="manual-add">
+          <input id="historyInput" type="text" placeholder="Add a manual note (e.g. 'Took paracetamol at 2pm')..." />
+          <button id="addHistoryBtn" class="icon-btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+
+        <ul id="timelineList" class="custom-scrollbar">
+          </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
