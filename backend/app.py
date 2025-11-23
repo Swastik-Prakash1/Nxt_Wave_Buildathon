@@ -10,12 +10,16 @@ from google.genai import types
 from PIL import Image
 
 # --- CONFIGURATION ---
-GEMINI_API_KEY = os.environ.get("AIzaSyCuk6xOaEWel1ZH1eT9fapsrcq0_Lv67GI") or "AIzaSyCuk6xOaEWel1ZH1eT9fapsrcq0_Lv67GI"
+# SECURITY NOTE: Never hardcode API keys. Set this in Render Environment Variables.
+GEMINI_API_KEY = os.environ.get("AIzaSyCuk6xOaEWel1ZH1eT9fapsrcq0_Lv67GI") 
 DATA_FILE = "data.json"
 MODEL = "gemini-2.0-flash" 
 
 client = genai.Client(api_key=GEMINI_API_KEY)
-app = Flask(__name__)
+
+# --- FLASK SETUP (Updated for Render) ---
+# This tells Flask to look for HTML/CSS/JS in the 'frontend' folder one level up
+app = Flask(__name__, static_folder="../frontend", static_url_path="/")
 CORS(app, resources={r"*": {"origins": "*"}})
 
 # --- DATABASE HELPERS ---
@@ -56,6 +60,11 @@ def parse_json_safe(text):
     return None
 
 # --- API ENDPOINTS ---
+
+# 1. NEW ROOT ROUTE (Serves index.html)
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 @app.route("/history", methods=["GET"])
 def get_history():
